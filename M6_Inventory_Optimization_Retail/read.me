@@ -1,7 +1,33 @@
 Inventory Optimization to predict sales forecasting/stock outs/re-order point/replinishment
     The task is to fine tune the model to achieve the best possible outcome to keep the inventory lean and manage the sales during the seasonal & non-seasonal demands efficiently and meet customer expectations on time.
-
-
+Tech Stack
+🚀 Platform & Tools
+	•	Google Colab: Cloud-based notebook environment for running code and experiments.
+	•	Google Gemini: Advanced AI model from Google for machine learning tasks and experimentation.
+💻 Programming Language
+	•	Python: Widely used for machine learning, data analysis, and prototyping.
+🛠 Core Libraries
+	•	TensorFlow: Open-source platform for machine learning, deep learning, and neural network training.
+📈 Time Series Libraries
+	•	Pandas: Data manipulation and analysis, including time series handling.
+	•	NumPy: Array computing and numerical operations.
+	•	scikit-learn: Machine learning library with basic time series utilities.
+	•	Statsmodels: Statistical analysis, forecasting, and time series modeling (e.g., ARIMA, SARIMAX).
+	•	sktime: Specialized library for time series analysis and machine learning.
+	•	tslearn: Machine learning tools for time series data.
+	•	prophet: Open-source forecasting (by Meta), designed for time series prediction.
+	•	GluonTS: Deep learning-based probabilistic time series modeling.
+	•	pmdarima: Auto ARIMA modeling for time series.
+	•	TensorFlow Timeseries: TensorFlow API for time series data and forecasting.
+🧑💻 Models & Algorithms
+	•	LSTM (Long Short-Term Memory): Recurrent neural network for sequence prediction and time series forecasting.
+	•	Random Forest: Ensemble method using multiple decision trees for robust regression and classification.
+	•	XGBoost: Gradient boosting framework for scalable, powerful regression and classification.
+	•	Linear Regression: Simple regression model for trend analysis.
+	•	Decision Tree: Tree-based regression/classification algorithm.
+	•	Support Vector Regression (SVR): Powerful regression using support vector machines.
+	•	K-Nearest Neighbors (KNN): Non-parametric regression and classification method.
+	•	LightGBM: Fast, efficient gradient boosting algorithm for large datasets.
 
 📊 Dataset Preparation
 	•	Load and explore the dataset to understand requirements for inventory optimization.
@@ -21,14 +47,52 @@ Inventory Optimization to predict sales forecasting/stock outs/re-order point/re
 		vii  K-Nearest Neighbors
 		viii Light BGM
 	
-	•	Establish a baseline by comparing model performance using metrics such as MAE, MSE, RMSE, and R².
+	•	Train and evaluate all the models and compare their model performance using metrics such as MAE, MSE, RMSE, and R².
 	•	Select the model that best fits the dataset and provides optimal predictive accuracy.
-Example - 
-	                           MAE	        MSE	        RMSE	    R-squared
-Linear Regression	        125.650154	21094.948245	145.241001	-0.002186
-Random Forest	            131.981937	24121.312881	155.310376	-0.145963
-Decision Tree	            169.285500	42206.339500	205.441815	-1.005153
-Support Vector Regression	125.595251	21062.557829	145.129452	-0.000647
-K-Nearest Neighbors	      132.291200	24570.333360	156.749269	-0.167296
+			Scores - 
+											MSE				RMSE	R-squared		MAE
+			LSTM						21067.339844	145.145926	-0.000874	125.590317
+			Support Vector Regression	21062.557829	145.129452	-0.000647	125.595251
+			Linear Regression			21094.948245	145.241001	-0.002186	125.650154
+			LightGBM					21864.843724	147.867656	-0.038762	127.341460
+			Random Forest				24121.312881	155.310376	-0.145963	131.981937
+			XGBoost						24426.212891	156.288876	-0.160449	132.064911
+			K-Nearest Neighbors			24570.333360	156.749269	-0.167296	132.291200
+			Decision Tree				42206.339500	205.441815	-1.005153	169.285500
+
 🤖 Model Fine Tuning
 
+	•	Best Model for the dataset - LSTM
+	•	Decide a strategy on how to handle outliers
+		- Based on the analysis, determine how to handle the identified outliers (e.g., removing them, transforming the data, or keeping them).
+	•	Build and Train the LSTM model with outlier to determine the score
+	•   Build and train a simple LSTM model using the data after outlier handling.
+	• 	Build and train LSTM models with different combinations of hyperparameters from the grid.
+		- LSTM_seq7_dropout0.5
+		- LSTM_seq7_dropout0.2
+		- LSTM_seq7_dropout0.3
+		- LSTM_seq14_dropout0.5
+		- LSTM_seq14_dropout0.2
+		- LSTM_seq14_dropout0.3
+	•	Build and train LSTM modles by Creating new features from the existing data that might improve the model's performance.
+	•	Reshape the data (after handling outliers and feature engineering) for the LSTM model.
+												MAE			MSE			RMSE		R-squared
+		-	LSTM (After Filtering and FE)	25.929617	2552.244385		50.519743	0.878747
+		-	LSTM (After Filtering)			125.590157	21066.466797	145.142919	-0.000833
+		-	LSTM_FE_seq7_dropout0.5			249.609711	83375.890625	288.748837	-2.957299
+		-	LSTM_FE_seq7_dropout0.3			249.615753	83379.218750	288.754600	-2.957456
+		-	LSTM_FE_seq14_dropout0.2		249.619827	83413.585938	288.814103	-2.953552
+		-	LSTM_FE_seq7_dropout0.2			249.622192	83374.523438	288.746469	-2.957234
+		-	LSTM_FE_seq14_dropout0.5		249.623398	83403.023438	288.795816	-2.953051
+		-	LSTM_FE_seq14_dropout0.3		249.627548	83404.921875	288.799103	-2.953141
+		-	LSTM_FE_seq30_dropout0.5		249.661713	83441.437500	288.862316	-2.952419
+		-	LSTM_FE_seq30_dropout0.2		249.685623	83451.179688	288.879178	-2.952881
+		-	LSTM_FE_seq30_dropout0.3		249.723236	83459.234375	288.893119	-2.953262
+	•	Build and train a simple LSTM model using the data with refined feature engineering.
+	•	Create new features from the existing data that might improve the LSTM model's performance.
+	•	Define features and target, scale features, and prepare for k-fold cross-validation by splitting the data into folds.
+	•	Implement the LSTM model and train it using k-fold cross-validation.
+																			MAE			MSE		RMSE		R-squared
+		-	LSTM (After Filtering and FE - Single Split)				25.929617	2552.244385	50.519743	0.878747
+		-	LSTM (After Filtering and FE - Cross-Validation Average)	10.325861	583.540942	24.143270	0.971777
+	•	Build and train an LSTM model using the data with lagged features.
