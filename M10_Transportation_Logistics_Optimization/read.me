@@ -32,13 +32,13 @@ Data Pipeline Overview
   
 Index	      Model	                      Target	                  MAE	                MSE	                RMSE	                R2
 5	    GradientBoostingRegressor	  Transportation Distance	  20.534564802429447	1525.4425393661968	39.056914104498794	0.9947437457007313
-7	    KNeighborsRegressor	        Transportation Distance	  22.848529411764705	13937.478437058824	118.0570982070067	  0.9519752930279547
-1	    Linear Regression	          Transportation Distance	  83.4907482219891	  62347.4811812847	  249.69477603923696	0.7851677742356269
-3	    RandomForestRegressor	      Transportation Distance	  259.29477647058826	146882.29416407357	383.252259176738	  0.49388412197608667
-2	    RandomForestRegressor	      Trip Duration	            6844.949647058823	  162057937.13923767	12730.197843680107	0.7126723479790243
-4	    GradientBoostingRegressor  	Trip Duration	            15549.479650571713	408500305.9632802	  20211.390500489575	0.275731656009949
-6	    KNeighborsRegressor	        Trip Duration            	18550.19294117647	  562311395.3731765	  23713.105983256948	0.003025610535836165
-0	    Linear Regression	           Trip Duration	          482576.6000043991	  1120959283703.2222	1058753.6463706854	-1986.453405141355
+7	    KNeighborsRegressor	        Transportation Distance	  	  22.848529411764705	13937.478437058824	118.0570982070067	0.9519752930279547
+1	    Linear Regression	          Transportation Distance	  83.4907482219891	  	62347.4811812847	249.69477603923696	0.7851677742356269
+3	    RandomForestRegressor	      Transportation Distance	  259.29477647058826	146882.29416407357	383.252259176738	0.49388412197608667
+2	    RandomForestRegressor	      Trip Duration	              6844.949647058823	  	162057937.13923767	12730.197843680107	0.7126723479790243
+4	    GradientBoostingRegressor  	Trip Duration	              15549.479650571713	408500305.9632802	20211.390500489575	0.275731656009949
+6	    KNeighborsRegressor	        Trip Duration            	  18550.19294117647	  	562311395.3731765	23713.105983256948	0.003025610535836165
+0	    Linear Regression	           Trip Duration	          482576.6000043991	  	1120959283703.2222	1058753.6463706854	-1986.453405141355
   
 4. Best Model to Analyze the Transportation Distance & Trip Duration - Gradient Boosting Regressor
 
@@ -56,8 +56,8 @@ Index	      Model	                      Target	                  MAE	           
 	•	Load the trained models and run prediction on new trip records.
 9. Final Scores after Fine Tuning both the Target Parameters using GradientBoostingRegressor Model -
 
-                    Target	                    Model	                    MAE	      MSE	      RMSE	  R²
-        Trip Duration (seconds)	      Tuned GradientBoostingRegressor	  4951.50	89571615.38	9464.23	0.8412
-        Transportation Distance (km)	Tuned GradientBoostingRegressor	  837.69	28.94	       12.56	1.00
+                    Target	                    Model	                    MAE	      MSE	       RMSE	   R²		Comments
+        Trip Duration (seconds)	      Tuned GradientBoostingRegressor	  4951.50	89571615.38	 9464.23  0.8412   We can further fine tune to achieve higher R^2
+        Transportation Distance (km)	Tuned GradientBoostingRegressor	  837.69	28.94	       12.56  1.00
 
  
