@@ -1,0 +1,63 @@
+Tech Stack
+	•	Google Colab: Enables interactive cloud-based Python notebooks for data analysis, preprocessing, and model development.
+	•	Gemini: Used for advanced AI-powered modeling, experimentation, and deployment workflows.
+
+Libraries Used
+	•	pandas: Data manipulation and cleaning, DataFrame creation, and handling missing values.
+	•	geopy.distance (geodesic): Calculating geodesic (straight-line on Earth’s surface) distances between latitude/longitude coordinates.
+	•	numpy: Array operations, calculating medians for missing value imputation, basic numerical computations.
+	•	joblib: Saving and loading trained machine learning models efficiently.
+
+
+
+Data Pipeline Overview
+1. Data Loading
+	•	Load the `data.csv` dataset into a Pandas DataFrame.
+2. Data Cleaning & Preprocessing
+	•	Extract latitude and longitude values from `org_lat_lon` and `des_lat_lon`.
+	•	Convert latitude/longitude columns to numeric types.
+	•	Remove rows with invalid coordinate values.
+	•	Handle missing values (using median/mode imputation or by dropping rows/columns as appropriate).
+	•	Recalculate `trip_duration_seconds_recalculated` and `delay_seconds_recalculated` based on start/end timestamps.
+	•	Drop original time delta fields and unnecessary time-only columns.
+	•	Handle outliers (rows dropped in current version, though in production these may be flagged or transformed).
+	•	Remove irrelevant columns.
+3. Models Used To Determine Baseline To Achieve High Scores
+  - Linear Regression
+  - Random Forest
+  - Gradient Boosting Regressor
+  - K NeighborsRegressor 
+
+4. Scores to Determine the Best Model for this Dataset
+  
+Index	      Model	                      Target	                  MAE	                MSE	                RMSE	                R2
+5	    GradientBoostingRegressor	  Transportation Distance	  20.534564802429447	1525.4425393661968	39.056914104498794	0.9947437457007313
+7	    KNeighborsRegressor	        Transportation Distance	  22.848529411764705	13937.478437058824	118.0570982070067	  0.9519752930279547
+1	    Linear Regression	          Transportation Distance	  83.4907482219891	  62347.4811812847	  249.69477603923696	0.7851677742356269
+3	    RandomForestRegressor	      Transportation Distance	  259.29477647058826	146882.29416407357	383.252259176738	  0.49388412197608667
+2	    RandomForestRegressor	      Trip Duration	            6844.949647058823	  162057937.13923767	12730.197843680107	0.7126723479790243
+4	    GradientBoostingRegressor  	Trip Duration	            15549.479650571713	408500305.9632802	  20211.390500489575	0.275731656009949
+6	    KNeighborsRegressor	        Trip Duration            	18550.19294117647	  562311395.3731765	  23713.105983256948	0.003025610535836165
+0	    Linear Regression	           Trip Duration	          482576.6000043991	  1120959283703.2222	1058753.6463706854	-1986.453405141355
+  
+4. Best Model to Analyze the Transportation Distance & Trip Duration - Gradient Boosting Regressor
+
+5. Feature Engineering
+	•	Derive temporal features: `start_hour`, `start_day_of_week`, `end_hour`, `end_day_of_week`.
+	•	Create categorical features such as `trip_duration_category` (if relevant to modeling).
+	•	Generate interaction features (e.g., `vehicle_type_x_distance`, `start_hour_x_day_of_week`) shown to improve model performance.
+6. Categorical Encoding
+	•	Apply One-Hot Encoding to selected categorical columns.
+7. Model Training (for reproducibility)
+	•	Define model architectures and tuned hyperparameters.
+	•	While training is not done in production, this ensures models can be reloaded consistently.
+	•	Trained models should be serialized and saved for downstream use.
+8. Prediction
+	•	Load the trained models and run prediction on new trip records.
+9. Final Scores after Fine Tuning both the Target Parameters using GradientBoostingRegressor Model -
+
+                    Target	                    Model	                    MAE	      MSE	      RMSE	  R²
+        Trip Duration (seconds)	      Tuned GradientBoostingRegressor	  4951.50	89571615.38	9464.23	0.8412
+        Transportation Distance (km)	Tuned GradientBoostingRegressor	  837.69	28.94	       12.56	1.00
+
+ 
