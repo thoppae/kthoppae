@@ -1,0 +1,25 @@
+Sales Anomaly Detection and Analysis
+This project focuses on analyzing the sales_data_set.csv file to identify weekly sales anomalies, with a specific focus on understanding the underlying causes of negative sales instances.
+Project Goal
+The primary goal of this project is to detect sales anomalies, particularly negative weekly sales, and to investigate the factors contributing to their occurrence. This analysis aims to provide insights for identifying potential data entry issues or return processing procedures in specific stores and departments.
+Data
+The analysis uses the sales_data_set.csv file, which contains weekly sales data for various stores and departments.
+Methodology
+	1	Data Loading and Exploration: The dataset was loaded into a pandas DataFrame, and initial exploration was performed to understand the data structure, types, and identify potential issues like negative sales.
+	2	Anomaly Identification: Sales anomalies were identified by filtering for negative sales and applying the Isolation Forest algorithm to detect outliers in the weekly sales data.
+	3	Feature Engineering: New features were engineered to capture temporal patterns and deviations from typical sales trends, including rolling means and standard deviations of weekly sales over different time windows, and lagged sales values.
+	4	Addressing Class Imbalance: Recognizing the imbalanced nature of the dataset (anomalies being the minority class), the training data was oversampled using RandomOverSampler.
+	5	Model Development and Evaluation: Multiple anomaly detection models and ensemble methods, including Decision Trees (baseline and tuned), LightGBM, XGBoost, and BalancedRandomForestClassifier, were developed and evaluated using metrics appropriate for imbalanced classification (Precision, Recall, F1-score).
+	6	Model Interpretation: The best-performing model was analyzed to understand the importance of different features in predicting anomalies.
+Key Findings
+	•	Negative values and unusually high values in 'Weekly_Sales' were identified as significant anomalies.
+	•	Addressing class imbalance and engineering temporal features (rolling statistics and lagged sales) significantly improved model performance.
+	•	Ensemble methods, particularly the BalancedRandomForestClassifier, outperformed simpler models in detecting anomalies, achieving a high F1-score (0.93), Precision (0.95), and Recall (0.91).
+	•	Feature importance analysis revealed that deviations from recent sales trends (captured by rolling means, standard deviations, and lagged sales) are the most influential factors in predicting anomalies.
+	•	While 'Store' and 'Dept' are still important, their relative influence is less significant compared to the temporal deviation features.
+Insights into Negative Sales
+The analysis indicates that negative sales are strongly associated with significant downward deviations from the typical sales patterns of specific stores and departments. The model highlights the conditions under which negative sales are likely to occur, pointing towards the need for targeted investigation into processes in high-incidence stores and departments during periods of unusual sales behavior.
+Next Steps
+	•	Conduct targeted investigations in stores and departments with high occurrences of negative sales, focusing on reviewing data entry procedures, return processing, and system logs during identified anomalous periods.
+	•	Consider adjusting the decision threshold of the BalancedRandomForestClassifier based on specific business requirements to balance precision and recall.
+	•	Explore other advanced time series anomaly detection techniques for more granular temporal analysis.
