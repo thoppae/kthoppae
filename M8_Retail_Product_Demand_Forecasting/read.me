@@ -1,0 +1,52 @@
+Data Loading and Initial Exploration: The Historical_Product_Demand.csv dataset was loaded into a pandas DataFrame. Initial data exploration was conducted to understand the data structure, identify missing values, and check data types.
+Data Preprocessing: Missing values in the 'Date' and 'Order_Demand' columns were handled by dropping the corresponding rows. The 'Date' column was converted to datetime objects, and the 'Order_Demand' was converted to a numeric type. Categorical features ('Warehouse' and 'Product_Category') were one-hot encoded.
+Exploratory Data Analysis (EDA): The distribution of 'Order_Demand' was visualized using a histogram. The monthly order demand over time was plotted to observe trends. The average order demand per warehouse and product category was analyzed using bar plots.
+Feature Engineering: Time-based features including 'Year', 'Month', 'Day', 'DayOfWeek', 'WeekOfYear', 'Quarter', and 'DayOfYear' were extracted from the 'Date' column and added to the DataFrame.
+Model Selection and Training: Several demand forecasting models were selected and trained:
+RandomForestRegressor: Trained with engineered features. Hyperparameter tuning was attempted using RandomizedSearchCV.
+Prophet: Trained on daily aggregated time series data.
+LSTM: Trained on scaled and sequenced daily aggregated time series data. An initial model was trained, and a manual hyperparameter tuning attempt was made.
+Simple Exponential Smoothing: Trained on daily aggregated time series data.
+Holt-Winters: Trained on daily aggregated time series data, accounting for seasonality.
+Model Evaluation: The performance of each model was evaluated using metrics including Mean Absolute Error (MAE), Mean Squared Error (MSE), Root Mean Squared Error (RMSE), and R-squared (R2). The models were evaluated on a time-based split of the data.
+Model Comparison: The evaluation metrics for all models were compiled into a comparison table.
+Model Performance Comparison and Best Model Identification
+Based on the comprehensive comparison of the models evaluated, here are the key findings for the tuned RandomForestRegressor and the optimized LSTM models:
+
+RandomForestRegressor (Tuned):
+
+Mean Absolute Error (MAE): 6097.17
+Mean Squared Error (MSE): 810457549.78
+Root Mean Squared Error (RMSE): 28468.54
+R-squared (R2): 0.0651
+LSTM (Optimized):
+
+Mean Absolute Error (MAE): 970346.72
+Mean Squared Error (MSE): 1795702117730.12
+Root Mean Squared Error (RMSE): 1340038.10
+R-squared (R2): 0.5768
+Comparing these two models:
+
+The RandomForestRegressor (Tuned) has significantly lower MAE, MSE, and RMSE. This indicates that its predictions are, on average, much closer to the actual demand values.
+The LSTM (Optimized) has a substantially higher R-squared value. This suggests that the LSTM model is better at explaining the overall variance and capturing the temporal patterns in the time series data.
+Best-Fitting Model:
+The "best" model depends on the specific goals of the demand forecasting.
+
+If the primary objective is to minimize the magnitude of prediction errors and have predictions that are closest to the actual demand values, the RandomForestRegressor (Tuned) appears to be the better choice based on its lower MAE, MSE, and RMSE.
+If the primary objective is to explain the variance in the data and capture the underlying temporal patterns, the LSTM (Optimized) is likely the better choice based on its higher R-squared.
+Further analysis into the nature of the data, the characteristics of different product demands, and the business requirements for forecasting accuracy would help in making a final decision on which model is truly "best" for this specific use case.
+
+
+Libraries used in this notebook:
+
+pandas: Used for data loading, manipulation, and preprocessing (e.g., reading CSV, handling missing values, one-hot encoding, time series resampling).
+numpy: Used for numerical operations, especially for array manipulation and calculations (e.g., square root for RMSE, creating sequences for LSTM).
+matplotlib.pyplot and seaborn: Used for data visualization (e.g., creating histograms and line plots).
+sklearn.model_selection: Used for splitting data into training and testing sets (train_test_split) and for hyperparameter tuning (RandomizedSearchCV, GridSearchCV).
+sklearn.ensemble: Used for the RandomForestRegressor model.
+sklearn.metrics: Used for evaluating model performance (e.g., mean_absolute_error, mean_squared_error, r2_score).
+sklearn.preprocessing: Used for scaling data (MinMaxScaler) for the LSTM model.
+statsmodels.tsa.holtwinters: Used for Simple Exponential Smoothing and Holt-Winters models.
+prophet: Used for the Prophet time series forecasting model.
+tensorflow.keras: Used for building and training the LSTM model (Sequential model, LSTM and Dense layers, Adam optimizer).
+scikeras: (Although installation was shown, its use in hyperparameter tuning was attempted but not fully successful in the provided code). It's intended to wrap Keras models for scikit-learn compatibility.
