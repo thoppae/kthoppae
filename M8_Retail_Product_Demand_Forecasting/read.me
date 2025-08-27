@@ -1,15 +1,23 @@
 Data Loading and Initial Exploration: The Historical_Product_Demand.csv dataset was loaded into a pandas DataFrame. Initial data exploration was conducted to understand the data structure, identify missing values, and check data types.
+
 Data Preprocessing: Missing values in the 'Date' and 'Order_Demand' columns were handled by dropping the corresponding rows. The 'Date' column was converted to datetime objects, and the 'Order_Demand' was converted to a numeric type. Categorical features ('Warehouse' and 'Product_Category') were one-hot encoded.
+
 Exploratory Data Analysis (EDA): The distribution of 'Order_Demand' was visualized using a histogram. The monthly order demand over time was plotted to observe trends. The average order demand per warehouse and product category was analyzed using bar plots.
+
 Feature Engineering: Time-based features including 'Year', 'Month', 'Day', 'DayOfWeek', 'WeekOfYear', 'Quarter', and 'DayOfYear' were extracted from the 'Date' column and added to the DataFrame.
+
 Model Selection and Training: Several demand forecasting models were selected and trained:
+
 RandomForestRegressor: Trained with engineered features. Hyperparameter tuning was attempted using RandomizedSearchCV.
 Prophet: Trained on daily aggregated time series data.
 LSTM: Trained on scaled and sequenced daily aggregated time series data. An initial model was trained, and a manual hyperparameter tuning attempt was made.
 Simple Exponential Smoothing: Trained on daily aggregated time series data.
 Holt-Winters: Trained on daily aggregated time series data, accounting for seasonality.
+
 Model Evaluation: The performance of each model was evaluated using metrics including Mean Absolute Error (MAE), Mean Squared Error (MSE), Root Mean Squared Error (RMSE), and R-squared (R2). The models were evaluated on a time-based split of the data.
+
 Model Comparison: The evaluation metrics for all models were compiled into a comparison table.
+
 Model Performance Comparison and Best Model Identification
 Based on the comprehensive comparison of the models evaluated, here are the key findings for the tuned RandomForestRegressor and the optimized LSTM models:
 
@@ -19,6 +27,7 @@ Mean Absolute Error (MAE): 6097.17
 Mean Squared Error (MSE): 810457549.78
 Root Mean Squared Error (RMSE): 28468.54
 R-squared (R2): 0.0651
+
 LSTM (Optimized):
 
 Mean Absolute Error (MAE): 970346.72
