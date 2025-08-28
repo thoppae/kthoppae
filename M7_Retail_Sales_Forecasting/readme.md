@@ -6,12 +6,19 @@ Python: The primary programming language used.
 
 Libraries
 pandas: For data loading, manipulation, and preprocessing.
+
 numpy: For numerical operations.
+
 matplotlib and seaborn: For data visualization (ACF and PACF plots).
+
 Prophet: A time series forecasting model developed by Facebook.
+
 statsmodels: For implementing ARIMA and SARIMA models.
+
 sklearn: For data splitting, scaling (MinMaxScaler), and evaluation metrics (Mean Absolute Error, Mean Squared Error). Also used for Random Forest and GridSearchCV.
+
 tensorflow and keras: For building and training the LSTM model.
+
 xgboost: For implementing the XGBoost model.
 
 Code Summary Steps
