@@ -1,0 +1,61 @@
+Tech Stack:
+
+Language: Python
+
+Libraries:
+pandas: For data manipulation and analysis.
+
+sklearn: For data splitting, preprocessing (scaling, label encoding), and evaluation metrics.
+
+numpy: For numerical operations, especially with arrays.
+
+tensorflow.keras: For building, training, and evaluating the LSTM model.
+
+matplotlib: For plotting the predicted demand.
+
+Code Details:
+
+Data Loading and Initial Preprocessing: The code loads data from retail_store_inv.csv, fills missing values in 'Seasonality Factors' and 'External Factors', and applies Label Encoding to categorical features (excluding 'Date').
+
+Outlier Filtering: It applies IQR-based outlier filtering to specific numerical columns.
+
+Feature Engineering: New features are created, including 'Price_per_Quantity', interaction terms between 'Price' and other factors, and polynomial features ('Price_squared', 'Sales_Quantity_squared').
+
+Seasonal Feature Engineering: Month and week of year are extracted from the 'Date' column and added as new features.
+
+Data Preparation for LSTM: The data is split into training and testing sets, scaled using StandardScaler, and reshaped to the required 3D format for the LSTM model (samples, timesteps=1, features).
+
+LSTM Model Definition and Training: A Sequential LSTM model is defined with a specified number of units and dropout rate. It is compiled using the Adam optimizer with a learning rate of 0.01 and trained for 100 epochs. Two models were trained: one without seasonal features and one with seasonal features.
+
+Model Evaluation: The trained models are evaluated using Mean Absolute Error (MAE), Mean Squared Error (MSE), Root Mean Squared Error (RMSE), and R-squared metrics.
+
+Predictive Replenishment Calculations: The trained model (both seasonal and non-seasonal versions) is used to predict demand over a 7-day lead time. Based on these predictions and their variability, dynamic re-order points and safety stocks are calculated for different service levels (90%, 95%, 99%).
+
+Results Summary and Visualization: The evaluation metrics and replenishment metrics are summarized in tables. The predicted demand over the lead time is also presented in a table and a line chart.
+
+Models:
+
+LSTM Model (Without Seasonal Features): Trained on the data with feature engineering but without explicit month and week features.
+LSTM Model (With Seasonal Features): Trained on the data with feature engineering and the added month and week features.
+Model Score Comparison: The comprehensive comparison table shows the performance metrics for both models:
+
+Metric	Non-Seasonal Model	Seasonal Model
+MAE	2.307715	2.167308
+MSE	12.194126	10.818724
+RMSE	3.492009	3.289183
+R-squared	0.998898	0.999022
+Prediction Variability (Std Dev)	65.723434	65.528839
+Calculated Safety Stock	286.045539	285.198596
+Dynamic Re-order Point	1067.555732	1059.540027
+Service Level Z-score	1.645000	1.645000
+Lead Time (days)	7.000000	7.000000
+
+Best Fit Model: Based on the evaluation metrics (MAE, MSE, RMSE are lower, and R-squared is higher), the LSTM Model (With Seasonal Features) appears to be the best fit for this dataset and task. It shows slightly better accuracy in predicting sales quantity and slightly lower prediction variability.
+
+Final Steps Outlined in the Notebook: The notebook outlines the following final steps:
+
+Summarize Results: Presenting the data analysis key findings, including the calculated replenishment metrics (predicted demand sum, prediction variability, safety stock, and re-order point) for the non-seasonal model.
+
+Comprehensive Results Comparison: Displaying a table comparing the evaluation and replenishment metrics for both the non-seasonal and seasonal models.
+Dynamic Re-order Point and Safety Stock Calculation (Non-Seasonal Model with Different Service Levels): Calculating and presenting replenishment metrics for the non-seasonal model at different service levels (90% and 97.5%) with a 7-day lead time.
+Dynamic Re-order Point and Safety Stock Calculation (Seasonal Model with Different Service Levels): Calculating and presenting replenishment metrics for the seasonal model at different service levels (90%, 95%, and 99%) with a 7-day lead time.
